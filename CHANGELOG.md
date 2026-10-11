@@ -12,3 +12,8 @@
 ## v2.1.0 (2026-10-11)
 - docs/production-report.md: report of the production CHR (final config, changes, root causes, test results)
 - docs/chr-3xui-setup.md: full command list to build a similar server
+
+## v3.0.0 (2026-10-12)
+- auto/: xui-auto — scheduler-driven automation. Operator creates the tunnel; routing, NAT, mangle,
+  VLESS+Reality inbound (3x-ui 3.9 API token) and the full Xray template are generated automatically
+- dry-run mode, adopt script for existing CHR
