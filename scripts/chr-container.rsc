@@ -5,6 +5,7 @@
 
 # ------------------------- PARAMETERS (edit) -------------------------
 :local DISK      "disk1"
+# pin a tag instead of :latest for reproducible installs
 :local IMAGE     "bigbugcc/3x-ui:latest"
 # Docker Hub blocks Iranian IPs. If pull fails, put a reachable mirror here
 # (e.g. a domestic Docker mirror) or upload an image .tar and use FILE.
@@ -16,12 +17,18 @@
 
 /container config set registry-url=$REGISTRY tmpdir=($DISK . "/pull")
 
+# persistent DB: image declares VOLUME /etc/x-ui (x-ui.db lives there)
+/container mounts add list=MOUNT_XUI src=("/" . $DISK . "/xui") dst=/etc/x-ui
+/container envs add list=ENV_XUI key=TZ value=Asia/Tehran
+
 :if ($FILE = "") do={
   /container add remote-image=$IMAGE interface=veth1 root-dir=($DISK . "/containers/3x-ui") \
-      dns=8.8.8.8,1.1.1.1 workdir=/app start-on-boot=yes logging=yes name=xui
+      dns=8.8.8.8,1.1.1.1 workdir=/app start-on-boot=yes logging=yes name=xui \
+      mountlists=MOUNT_XUI envlists=ENV_XUI ignore-remote-image-change=yes
 } else={
   /container add file=$FILE interface=veth1 root-dir=($DISK . "/containers/3x-ui") \
-      dns=8.8.8.8,1.1.1.1 workdir=/app start-on-boot=yes logging=yes name=xui
+      dns=8.8.8.8,1.1.1.1 workdir=/app start-on-boot=yes logging=yes name=xui \
+      mountlists=MOUNT_XUI envlists=ENV_XUI
 }
 
 :put "waiting for image pull/extract (up to 10 min)..."
