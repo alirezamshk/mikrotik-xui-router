@@ -22,6 +22,8 @@ $arAdd name=uk iface=gre-to-UK backup=de dns=yes ovpn=1181
 | `scripts/chr-container.rsc` | مرحله ۲ — نصب کانتینر 3x-ui |
 | `scripts/ar-lib.rsc` | مرحله ۳ — توابع `$arAdd` / `$arDel` / `$arList` |
 | `migrate/ar-base.rsc` | مهاجرت یک CHR قدیمی به این ساختار (نمونه، باید با کانفیگ خودتان تطبیق داده شود) |
+| `docs/production-report.md` | **گزارش CHR فعلی: کانفیگ نهایی، تغییرات، مشکلات و نتایج تست** |
+| `docs/chr-3xui-setup.md` | **همه دستورهای راه‌اندازی یک سرور مشابه** |
 | `docs/architecture.md` | منطق کارکرد و جریان ترافیک |
 | `docs/new-router.md` | راهنمای قدم‌به‌قدم روتر جدید |
 | `docs/add-route.md` | اضافه/حذف کردن یک کشور |
